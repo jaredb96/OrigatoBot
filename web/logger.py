@@ -39,7 +39,7 @@ class Logger:
 
         # enable downloads and set download directory
         if HEADLESS:
-            self.enable_download_headless(driver)
+            self.enable_headless_download(driver)
         return driver
 
     def get_browser_options(self):
@@ -64,7 +64,7 @@ class Logger:
 
         return options
 
-    def enable_download_headless(self, driver):
+    def enable_headless_download(self, driver):
         download_dir = CONFIGS['downloads_directory']
 
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
