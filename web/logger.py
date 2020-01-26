@@ -2,6 +2,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from utils.config import CONFIGS
 from selenium.webdriver.chrome.options import Options
+import time
+
 
 # set HEADLESS to True if you don't want a browser to open up
 # set HEADLESS to False if you want a browser to open up
@@ -22,7 +24,9 @@ class Logger:
         user_password = CONFIGS['password']
 
         username.send_keys(user_username)
+        time.sleep(3)
         password.send_keys(user_password)
+        time.sleep(2)
 
         # simulates the press of the login button.
         driver.find_element_by_name("login").click()

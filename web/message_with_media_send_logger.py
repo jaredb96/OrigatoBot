@@ -8,7 +8,7 @@ import time
 ORIGATO_CHAT_URL = 'https://www.messenger.com/t/1738204539622881'
 ORIGATO_BOT_CHAT_URL = 'https://www.messenger.com/t/origato.bot.5'
 
-DESTINATION_URL = ORIGATO_BOT_CHAT_URL
+DESTINATION_URL = ORIGATO_CHAT_URL
 
 
 class MessageWithMediaSendLogger(Logger):
@@ -28,6 +28,7 @@ class MessageWithMediaSendLogger(Logger):
 
         ActionChains(driver).move_to_element(chat_box).click(chat_box).perform()
         chat_box.send_keys(greeting_message + '\n')
+        time.sleep(1)
 
         self.send_messages()
 
@@ -44,6 +45,7 @@ class MessageWithMediaSendLogger(Logger):
     def send_messages(self):
         driver = self.get_driver()
         for message in self.get_messages_to_send():
+            time.sleep(1)
             chat_box = self.get_chat_box()
             ActionChains(driver).move_to_element(chat_box).click(chat_box).perform()
 
@@ -80,6 +82,9 @@ class MessageWithMediaSendLogger(Logger):
             add_files_elmnt = driver.find_elements_by_xpath("//*[@class='_n _2__f _4e5e']")[1]
         add_files_elmnt.send_keys(media_uri)
         chat_box.send_keys(Keys.ENTER)
+
+        # wait a little for attachment to fully send
+        time.sleep(2)
 
     def send_text_message(self, message):
         chat_box = self.get_chat_box()
