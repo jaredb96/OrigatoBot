@@ -19,14 +19,10 @@ class JsonDownloadLogger(Logger):
         None
 
     def download_weekly_message_data(self):
-        # download message data between yesterday and today
+        # download message data between today and 7 days ago
         end_date = datetime.datetime.now()
         start_date = end_date - timedelta(7)
 
-        print('start date: ' + str(start_date))
-        print('end date: ' + str(end_date))
-
-        return
         self.download_message_data(start_date, end_date)
 
     def download_message_data(self, start_date, end_date):
