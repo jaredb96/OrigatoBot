@@ -6,9 +6,9 @@ from utils.config import CONFIGS
 import time
 
 ORIGATO_CHAT_URL = 'https://www.messenger.com/t/1738204539622881'
-ORIGATO_BOT_CHAT_URL = 'https://www.messenger.com/t/origato.bot.5'
+ORIGATO_BOT_CHAT_URL = 'https://www.messenger.com/t/100046207061829'
 
-DESTINATION_URL = ORIGATO_CHAT_URL
+DESTINATION_URL = ORIGATO_BOT_CHAT_URL
 
 
 class MessageWithMediaSendLogger(Logger):
