@@ -2,7 +2,7 @@ from chat import message_builder
 from web import json_reader, message_with_media_send_logger
 from chat import chat_room
 from web import json_download_logger
-from utils import web_utils, config
+from config import config
 import time
 
 # set global configs
@@ -10,11 +10,11 @@ config.set_global_configs()
 
 # download message data
 json_downloader_bot = json_download_logger.JsonDownloadLogger()
-json_downloader_bot.download_recent_message_data()
+json_downloader_bot.download_weekly_message_data()
 
 # unzip data and get path to it
-web_utils.unzip_message_data()
-relative_path_to_messages_jsons = web_utils.get_relative_path_to_messages_jsons()
+json_downloader_bot.unzip_message_data()
+relative_path_to_messages_jsons = json_downloader_bot.get_relative_path_to_messages_jsons()
 
 # create json parser
 m_factory = message_builder.MessageBuilder()
@@ -36,6 +36,9 @@ messenger_chat.assign_messages_to_members(chat_messages)
 sorted_messages = messenger_chat.sort_message_list_by_number_of_reacts(chat_messages)
 top_three_messages = sorted_messages[0:3]
 
+for message in top_three_messages:
+    print(message.get_text() + ', ' + message.get_media_uri() + ', ' + str(message.get_number_of_reacts()) + ' reacts')
+
 # send top 3 messages to origato chat
 m_sender = message_with_media_send_logger.MessageWithMediaSendLogger(top_three_messages)
 m_sender.send_summary()
@@ -46,6 +49,6 @@ time.sleep(3)
 print('summary message sent, deleting downloaded files...')
 
 # delete zip file and unzipped directory
-web_utils.downloads_cleanup()
+json_downloader_bot.downloads_cleanup()
 
 print('cleanup complete! everythings finished :)')
