@@ -1,6 +1,6 @@
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
-from utils.config import CONFIGS
+from config.config import CONFIGS
 from selenium.webdriver.chrome.options import Options
 import time
 
