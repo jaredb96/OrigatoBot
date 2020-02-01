@@ -2,20 +2,23 @@ from web.logger import Logger
 import os
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from utils.config import CONFIGS
+from config.config import CONFIGS
 import time
 
 ORIGATO_CHAT_URL = 'https://www.messenger.com/t/1738204539622881'
 ORIGATO_BOT_CHAT_URL = 'https://www.messenger.com/t/100046207061829'
+HUSSAIN_CHAT_URL = 'https://www.messenger.com/t/hussain.humadi'
 
-DESTINATION_URL = ORIGATO_BOT_CHAT_URL
+DESTINATION_URL = HUSSAIN_CHAT_URL
 
 
 class MessageWithMediaSendLogger(Logger):
 
-    def __init__(self, messages_to_send):
+    def __init__(self, messages_to_send, rots_ranking_message=''):
         self.__messages_to_send = messages_to_send
         self.__driver = Logger.login(self, DESTINATION_URL)
+        self.__rots_ranking_message = rots_ranking_message
+
         self.get_driver().maximize_window()
 
     def send_summary(self):
@@ -30,6 +33,7 @@ class MessageWithMediaSendLogger(Logger):
         chat_box.send_keys(greeting_message + '\n')
         time.sleep(1)
 
+        # send top reacted messages
         self.send_messages()
 
         chat_box = self.get_chat_box()
@@ -63,6 +67,14 @@ class MessageWithMediaSendLogger(Logger):
                 # send media
                 self.send_media_message(message)
 
+        # send ROTS ranking message
+        rots_ranking_message = self.get_rots_ranking_message()
+        if rots_ranking_message != '':
+            time.sleep(1)
+            chat_box = self.get_chat_box()
+            ActionChains(driver).move_to_element(chat_box).click(chat_box).perform()
+            self.send_ranking_message()
+
     def send_media_message(self, message):
         driver = self.get_driver()
         chat_box = self.get_chat_box()
@@ -91,6 +103,11 @@ class MessageWithMediaSendLogger(Logger):
         text = self.reformat_string(message.get_text())
         chat_box.send_keys(Keys.SHIFT + Keys.ENTER + Keys.SHIFT + text + Keys.ENTER)
 
+    def send_ranking_message(self):
+        chat_box = self.get_chat_box()
+        text = self.reformat_string(self.get_rots_ranking_message())
+        chat_box.send_keys(Keys.SHIFT + Keys.ENTER + Keys.SHIFT + text + Keys.ENTER)
+
     def reformat_string(self, text):
         return text.replace('\n', Keys.SHIFT + Keys.ENTER + Keys.SHIFT)
 
@@ -111,5 +128,11 @@ class MessageWithMediaSendLogger(Logger):
         if DESTINATION_URL == ORIGATO_CHAT_URL:
             return self.get_driver().find_elements_by_xpath("//*[@class='_1mf _1mj']")[1]
         # for private chats, chat box is 1st (and only) text window
-        elif DESTINATION_URL == ORIGATO_BOT_CHAT_URL:
+        elif DESTINATION_URL == ORIGATO_BOT_CHAT_URL or DESTINATION_URL == HUSSAIN_CHAT_URL:
             return self.get_driver().find_elements_by_xpath("//*[@class='_1mf _1mj']")[0]
+
+    def get_rots_ranking_message(self):
+        return self.__rots_ranking_message
+
+    def set_rots_ranking_message(self, rots_ranking_message):
+        self.__rots_ranking_message = rots_ranking_message

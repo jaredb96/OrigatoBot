@@ -4,6 +4,7 @@ from chat import chat_room
 from web import json_download_logger
 from config import config
 import time
+from construct_rots_message import *
 
 # set global configs
 config.set_global_configs()
@@ -32,15 +33,12 @@ messenger_chat.set_chat_members(chat_members)
 chat_messages = m_factory.make_list_of_messages()
 messenger_chat.assign_messages_to_members(chat_messages)
 
-# sort all messages and get top 3
-sorted_messages = messenger_chat.sort_message_list_by_number_of_reacts(chat_messages)
-top_three_messages = sorted_messages[0:3]
+rots_ranking_message = get_rots_message(messenger_chat)
+top_three_messages = messenger_chat.get_top_k_messages_with_ties(3)
 
-for message in top_three_messages:
-    print(message.get_text() + ', ' + message.get_media_uri() + ', ' + str(message.get_number_of_reacts()) + ' reacts')
-
-# send top 3 messages to origato chat
-m_sender = message_with_media_send_logger.MessageWithMediaSendLogger(top_three_messages)
+# send summary to origato chat
+m_sender = message_with_media_send_logger.MessageWithMediaSendLogger(top_three_messages,
+                                                                     rots_ranking_message=rots_ranking_message)
 m_sender.send_summary()
 
 # sleep to see the result before window closes
