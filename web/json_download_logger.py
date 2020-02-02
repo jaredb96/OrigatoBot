@@ -230,7 +230,7 @@ class JsonDownloadLogger(Logger):
     def get_origato_directory_name_windows(self):
         origato_chat_name = ""
         for directory_name in os.listdir('messages/inbox'):
-            if 'ORIGATO' in directory_name.upper() and 'ORIGATOBOT' not in directory_name.upper():
+            if 'ORIGATO' in directory_name.upper() and 'ORIGATORESURRECTED' not in directory_name.upper():
                 origato_chat_name = directory_name
         return origato_chat_name
 
@@ -242,7 +242,7 @@ class JsonDownloadLogger(Logger):
         # linux downloads store media in directory with uppercase chat name
         elif platform.system() == 'Linux':
             for directory_name in os.listdir('messages/inbox'):
-                if 'ORIGATO' in directory_name and 'ORIGATOBOT' not in directory_name:
+                if 'ORIGATO' in directory_name and 'ORIGATORESURRECTED' not in directory_name:
                     return directory_name
 
         # default, should never reach
@@ -256,7 +256,7 @@ class JsonDownloadLogger(Logger):
         # linux downloads store messages in directory with lowercase chat name
         elif platform.system() == 'Linux':
             for directory_name in os.listdir('messages/inbox'):
-                if 'origato' in directory_name and 'origatobot' not in directory_name:
+                if 'origato' in directory_name and 'origatoresurrected' not in directory_name:
                     return directory_name
 
         # default, should never reach
