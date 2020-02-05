@@ -20,17 +20,16 @@ def install_dependencies():
 
 
 def install_python_package(package):
-    # use either python or python3 to run pip install
-    try:
+    # Windows does not recognize 'python3' as command
+    operating_system = platform.system()
+    if operating_system == 'Windows':
         installation_command = 'python -m pip install ' + package
-        print('RUNNING: ' + installation_command + '...')
-        os.system(installation_command)
-    except:
-        print('cannot install with \'python\', trying \'python3\'')
-
+    else:
         installation_command = 'python3 -m pip install ' + package
-        print('RUNNING: ' + installation_command + '...')
-        os.system(installation_command)
+
+    print('RUNNING: ' + installation_command + '...')
+    os.system(installation_command)
+
 
 
 def generate_dependencies_list():
@@ -73,4 +72,4 @@ def generate_config_file():
 uncomment this function and run when ready to install dependencies and run configurations
 This function installs all dependencies needed for the project, and generates text file for user configurations
 """
-# setup()
+setup()
