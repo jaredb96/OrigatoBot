@@ -71,5 +71,7 @@ def generate_config_file():
 """
 uncomment this function and run when ready to install dependencies and run configurations
 This function installs all dependencies needed for the project, and generates text file for user configurations
+
+make sure to run this file from the root directory of the repo (Your directory should be /path/to/WebScrapeChatBot/)
 """
 setup()
