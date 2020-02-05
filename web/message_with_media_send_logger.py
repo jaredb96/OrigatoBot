@@ -2,7 +2,7 @@ from web.logger import Logger
 import os
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from config.config import CONFIGS
+from setup.load_global_configs import CONFIGS
 import time
 
 ORIGATO_CHAT_URL = 'https://www.messenger.com/t/1738204539622881'

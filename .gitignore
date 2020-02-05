@@ -5,7 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
-
+*.xml
+.idea/*.iml
+.idea/*.xml
 # Distribution / packaging
 .Python
 build/
@@ -104,4 +106,4 @@ venv.bak/
 .mypy_cache/
 
 # config file
-config/config.txt
+setup/config.txt

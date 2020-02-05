@@ -2,12 +2,12 @@ from chat import message_builder
 from web import json_reader, message_with_media_send_logger
 from chat import chat_room
 from web import json_download_logger
-from config import config
+from setup import load_global_configs
 import time
 from construct_rots_message import *
 
 # set global configs
-config.set_global_configs()
+load_global_configs.load_global_configs()
 
 # download message data
 json_downloader_bot = json_download_logger.JsonDownloadLogger()
