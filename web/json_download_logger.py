@@ -10,7 +10,7 @@ import zipfile
 import platform
 import os.path
 import shutil
-from config.config import CONFIGS
+from setup.load_global_configs import CONFIGS
 from bs4 import BeautifulSoup
 
 
