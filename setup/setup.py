@@ -47,7 +47,7 @@ def generate_config_file():
     downloads_directory = input('Please enter the directory where the bot will download the zipfile into\n'
                                 '(both forward and back slashes acceptable): ')
     zipfile_name = input('Please enter the name of the zipfile that would be downloaded from fb settings\n'
-                         '(include \'.zip\' extension): ')
+                         '(include \'.zip\' extension, and make sure to end with a \'/\'): ')
 
     greeting_message = input('Enter the message you want the bot to greet the chat with!: ')
     farewell_message = input('Enter the message you want the bot to leave the chat with!: ')
