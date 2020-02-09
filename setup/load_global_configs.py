@@ -3,7 +3,7 @@ CONFIGS = {}
 
 
 def load_global_configs():
-    file = open('setup/setup.txt')
+    file = open('setup/config.txt')
     for line in file:
         key, value = line.strip().split('=')
         CONFIGS[key.strip()] = value.strip()
