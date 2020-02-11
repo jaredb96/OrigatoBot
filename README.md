@@ -13,12 +13,12 @@ Make sure <b><i>setup.py</i></b> is being run while you are located in the root 
 ```python setup/setup.py``` on <b>Windows</b>
 <br>
 ```python3 setup/setup.py``` on <b>Linux</b>
-
-<b><i>*Note: If you are using Pycharm, you can just right-click the file and hit run</i></b>
+<br>
+<b><i>*Note: If you are using Pycharm, you can instead just right-click the file and hit run</i></b>
 
 After the dependencies are installed, the script will prompt you to enter all the necessary information required to run the bot, such as yout downloads directory, and the messages you want the bot to say when entering and leaving the chat.
 
 After this is done, the <b><i>config.txt</i></b> file will be generated in the <b><i>setup/</i></b> directory, and you should be good to go
 
 ### Configuring chat name/URL
-The default behavior for the bot is configured for personal purposes; therefore, it is harcoded to use a group chat that starts with <i>ORIGATO</i>. These values can be changed via the DESTINATION_URL in <b><i>web/message_with_media_send_logger.py</i></b>, and by changing the directory manipulation functions in <b><i>web/json_download_logger.py</i></b>
+The default behavior for the bot is configured for personal purposes; therefore, it is harcoded to use a group chat that starts with <i>ORIGATO</i>. If you want to use a different chat, these values can be changed via the DESTINATION_URL in <b><i>web/message_with_media_send_logger.py</i></b>, and by changing the directory manipulation functions in <b><i>web/json_download_logger.py</i></b>
