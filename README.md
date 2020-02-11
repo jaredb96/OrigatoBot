@@ -17,7 +17,7 @@ Make sure <b><i>setup.py</i></b> is being run while you are located in the root 
 <br>
 <b><i>*Note: If you are using Pycharm, you can instead just right-click the file and hit run</i></b>
 
-After the dependencies are installed, the script will prompt you to enter all the necessary information required to run the bot, such as yout downloads directory, and the messages you want the bot to say when entering and leaving the chat.
+After the dependencies are installed, the script will prompt you to enter all the necessary information required to run the bot, such as your downloads directory, and the messages you want the bot to say when entering and leaving the chat.
 
 After this is done, the <b><i>config.txt</i></b> file will be generated in the <b><i>setup/</i></b> directory, and you should be good to go
 
