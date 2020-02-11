@@ -2,7 +2,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from setup.load_global_configs import CONFIGS
 import time
-
+import random
 
 # set HEADLESS to True if you don't want a browser to open up
 # set HEADLESS to False if you want a browser to open up
@@ -23,9 +23,10 @@ class Logger:
         user_password = CONFIGS['password']
 
         username.send_keys(user_username)
-        time.sleep(3)
+        self.sleep_up_to_5_secs()
+
         password.send_keys(user_password)
-        time.sleep(2)
+        self.sleep_up_to_5_secs()
 
         # simulates the press of the login button.
         driver.find_element_by_name("login").click()
@@ -67,6 +68,11 @@ class Logger:
         download_dir = CONFIGS['downloads_directory']
 
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
-        params = {'cmd':'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_dir}}
+        params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_dir}}
         driver.execute("send_command", params)
         print('set download directory to: ' + download_dir)
+
+    def sleep_up_to_5_secs(self):
+        time_to_sleep = random.randint(1, 5)
+
+        time.sleep(time_to_sleep)

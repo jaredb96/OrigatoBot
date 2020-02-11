@@ -62,7 +62,7 @@ class JsonDownloadLogger(Logger):
         json_option = driver.find_elements_by_xpath("//*[@class='_54nh']")[1]
         json_option.click()
 
-        time.sleep(5)
+        self.sleep_up_to_5_secs()
 
         # deselect all
         elmnt = driver.find_element_by_xpath("//*[contains(text(), 'Deselect All')]")
@@ -76,7 +76,7 @@ class JsonDownloadLogger(Logger):
         # click messages checkbox
         webdriver.ActionChains(driver).move_to_element(msg_elmnt).click(msg_elmnt).perform()
 
-        time.sleep(3)
+        self.sleep_up_to_5_secs()
 
         # move to top of screen, use top header text as anchor point
         top_text = driver.find_element_by_xpath("//*[@class='_2pi0 _4-u2  _4-u8']")
@@ -118,7 +118,7 @@ class JsonDownloadLogger(Logger):
         num_block = driver.find_elements_by_xpath(start_xpath)[0]
         num_block.click()
 
-        time.sleep(1)
+        self.sleep_up_to_5_secs()
 
         # select curr year
         year_dropdown_elmnt = driver.find_elements_by_xpath \
@@ -130,7 +130,7 @@ class JsonDownloadLogger(Logger):
         else:
             year_dropdown_elmnt.click()
 
-        time.sleep(1)
+            self.sleep_up_to_5_secs()
 
         # select curr month
         month_dropdown_elmnt = driver.find_elements_by_xpath \
@@ -148,19 +148,19 @@ class JsonDownloadLogger(Logger):
         num_block = driver.find_elements_by_xpath(end_xpath)[1]
         num_block.click()
 
-        time.sleep(1)
+        self.sleep_up_to_5_secs()
 
         # click ok
         ok_button = driver.find_element_by_xpath("//*[@class='_4jy0 _4jy3 _4jy1 _51sy selected _42ft']")
         ok_button.click()
 
-        time.sleep(2)
+        self.sleep_up_to_5_secs()
 
         # click create file
         create_file_button = driver.find_element_by_xpath("//*[@data-testid='dyi/sections/create']")
         create_file_button.click()
 
-        time.sleep(1)
+        self.sleep_up_to_5_secs()
 
         # click 'available copies'
         available_copies_button = driver.find_element_by_xpath("//*[@data-testid='dyi/navigation/all_archives']")
@@ -181,7 +181,7 @@ class JsonDownloadLogger(Logger):
             except:
                 continue
 
-        time.sleep(2)
+        self.sleep_up_to_5_secs()
 
         # refresh page
         driver.refresh()
@@ -208,7 +208,7 @@ class JsonDownloadLogger(Logger):
             zip_file_ready = os.path.isfile(path_to_zip_file)
 
         print('download complete! closing...')
-        time.sleep(3)
+        self.sleep_up_to_5_secs()
 
         driver.quit()
 
@@ -223,7 +223,7 @@ class JsonDownloadLogger(Logger):
             zip_ref.extractall(destination_directory)
 
         origato_media_directory_name = self.get_origato_media_directory_name()
-        self.convert_all_mp4_files_to_mp3(
+        self.__convert_all_mp4_files_to_mp3(
             destination_directory + '/messages/inbox/' + origato_media_directory_name + '/audio'
         )
 
@@ -239,8 +239,8 @@ class JsonDownloadLogger(Logger):
         if platform.system() == 'Windows':
             return self.get_origato_directory_name_windows()
 
-        # linux downloads store media in directory with uppercase chat name
-        elif platform.system() == 'Linux':
+        # linux (and Mac?) downloads store media in directory with uppercase chat name
+        elif platform.system() == 'Linux' or platform.system() == 'Darwin':
             for directory_name in os.listdir('messages/inbox'):
                 if 'ORIGATO' in directory_name and 'ORIGATORESURRECTED' not in directory_name:
                     return directory_name
@@ -253,8 +253,8 @@ class JsonDownloadLogger(Logger):
         if platform.system() == 'Windows':
             return self.get_origato_directory_name_windows()
 
-        # linux downloads store messages in directory with lowercase chat name
-        elif platform.system() == 'Linux':
+        # linux (and Mac?) downloads store messages in directory with lowercase chat name
+        elif platform.system() == 'Linux' or platform.system() == 'Darwin':
             for directory_name in os.listdir('messages/inbox'):
                 if 'origato' in directory_name and 'origatoresurrected' not in directory_name:
                     return directory_name
@@ -268,7 +268,7 @@ class JsonDownloadLogger(Logger):
         relative_path_to_messages_json = 'messages/inbox/' + origato_messages_directory_name + '/'
         return relative_path_to_messages_json
 
-    def convert_all_mp4_files_to_mp3(self, path):
+    def __convert_all_mp4_files_to_mp3(self, path):
         if not os.path.exists(path):
             return
         print('converting audio files from mp4 to mp3...')
