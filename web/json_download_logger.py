@@ -59,6 +59,8 @@ class JsonDownloadLogger(Logger):
         format_dropdown_menu = \
             driver.find_elements_by_xpath("//*[@class='_p _55pi _2agf _4o_4 _4jy0 _4jy5 _517h _51sy _42ft']")[0]
         format_dropdown_menu.click()
+        self.sleep_up_to_5_secs()
+
         json_option = driver.find_elements_by_xpath("//*[@class='_54nh']")[1]
         json_option.click()
 
@@ -90,6 +92,8 @@ class JsonDownloadLogger(Logger):
         year_dropdown_elmnt = driver.find_elements_by_xpath \
             ("//*[@class='_2-cs _p _55pi _2agf _4o_4 _4jy0 _4jy3 _517h _51sy _42ft']")[0]
         year_dropdown_elmnt.click()
+
+        self.sleep_up_to_5_secs()
 
         # get today's date
         dt = datetime.datetime.today()
@@ -130,7 +134,7 @@ class JsonDownloadLogger(Logger):
         else:
             year_dropdown_elmnt.click()
 
-            self.sleep_up_to_5_secs()
+        self.sleep_up_to_5_secs()
 
         # select curr month
         month_dropdown_elmnt = driver.find_elements_by_xpath \
