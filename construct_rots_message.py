@@ -13,7 +13,7 @@ def get_rots_message(messenger_chat: chat_room):
         total_reacts = member.get_total_reacts()
 
         # dont include people with no messages
-        if num_messages == 0:
+        if num_messages < 50:
             continue
 
         num_messages_per_user.append(num_messages)
