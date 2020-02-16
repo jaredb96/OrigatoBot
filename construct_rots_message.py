@@ -12,7 +12,6 @@ def get_rots_message(messenger_chat: chat_room):
         num_messages = len(member.get_message_bank())
         total_reacts = member.get_total_reacts()
 
-        # dont include people with no messages
         if num_messages < 50:
             continue
 
@@ -26,6 +25,9 @@ def get_rots_message(messenger_chat: chat_room):
         member_name = member.get_member_name()
         num_messages = len(member.get_message_bank())
         total_reacts = member.get_total_reacts()
+
+        if num_messages < 50:
+            continue
 
         expected = b + m * num_messages
         actual = total_reacts
