@@ -39,7 +39,8 @@ def get_rots_message(messenger_chat: chat_room):
     top_scores = sorted_mappings[0:3]
 
     rankings_message = ""
-    rankings_message += 'In addition, here are the top 3 origato-scorers of the week!\n'
+    rankings_message += 'In addition, here are the top 3 origato-scorers of the week! ' \
+                        '(*NOTE: Only those with 50 or more messages are counted)\n'
 
     for i, mapping in enumerate(top_scores):
         author_name = mapping[0]
