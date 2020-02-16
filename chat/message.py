@@ -8,13 +8,11 @@ class Message:
             author_name='',
             message_id=0,
             text='',
-            num_of_reacts=0,
-            media_uri=''):
+            num_of_reacts=0):
         self.__author = author_name
         self.__message_id = message_id
         self.__text = text
         self.__number_of_reacts = num_of_reacts
-        self.__media_uri = media_uri
 
     def __eq__(self, other):
         return \
@@ -47,11 +45,6 @@ class Message:
     def set_number_of_reacts(self, n_reacts):
         self.__number_of_reacts = n_reacts
 
-    def get_media_uri(self):
-        return self.__media_uri
-
-    def set_media_uri(self, media_uri):
-        self.__media_uri = media_uri
 
 
 
