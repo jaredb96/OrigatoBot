@@ -16,8 +16,7 @@ from bs4 import BeautifulSoup
 
 class JsonDownloadLogger(Logger):
     def __init__(self):
-        self.__driver = Logger.login(self, Logger.login(self, "https://www.facebook.com"
-                                                              "/settings?tab=your_facebook_information"))
+        self.__driver = Logger.login(self, "https://www.facebook.com/settings?tab=your_facebook_information")
         self.__driver.maximize_window()
 
     def download_weekly_message_data(self):
@@ -405,8 +404,6 @@ class JsonDownloadLogger(Logger):
         path_to_zip_file = CONFIGS['downloads_directory'] + CONFIGS['zipfile_name']
         zip_file_ready = os.path.exists(path_to_zip_file)
         return zip_file_ready
-
-
 
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                                     UTIL FUNCS
