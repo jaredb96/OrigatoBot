@@ -18,7 +18,6 @@ class JsonDownloadLogger(Logger):
     def __init__(self):
         self.__driver = Logger.login(self, "https://www.facebook.com/settings?tab=your_facebook_information")
         self.__driver.maximize_window()
-        None
 
     def download_weekly_message_data(self):
         # download message data between today and 7 days ago
@@ -30,36 +29,27 @@ class JsonDownloadLogger(Logger):
     def download_message_data(self, start_date, end_date):
         driver = self.__driver
 
-        self.sleep_up_to_5_secs()
-
         # if not headless, popover obscures focus of screen
         if not HEADLESS:
             self.__remove_obscuring_popover()
 
-        # redirect via "download your information" option
         self.__navigate_to_download_options()
 
-        # select 'JSON/HTML' dropdown menu
         self.__select_json_option()
+
+        self.__select_deselect_all()
 
         self.__select_messages_option()
 
-        # move to top of screen
         self.__scroll_to_top_of_window()
 
-        # confirm  start and end dates
         self.select_start_and_end_dates(start_date, end_date)
-        self.sleep_up_to_5_secs()
 
-        # click create file
         self.__click_create_file_button()
 
-        # click 'available copies'
         self.__click_available_copies()
 
         print('waiting for files to be ready...')
-
-        # wait for file to be ready for download
         while not self.files_ready():
             continue
 
@@ -82,6 +72,7 @@ class JsonDownloadLogger(Logger):
         while not self.download_complete():
             continue
         print('download complete! closing...')
+
         self.sleep_up_to_5_secs()
 
         driver.quit()
@@ -114,11 +105,15 @@ class JsonDownloadLogger(Logger):
 
         self.sleep_up_to_5_secs()
 
-    def __select_messages_option(self):
+    def __select_deselect_all(self):
         driver = self.__driver
-
         elmnt = driver.find_element_by_xpath("//*[contains(text(), 'Deselect All')]")
         elmnt.send_keys(Keys.ENTER)
+
+        self.sleep_up_to_5_secs()
+
+    def __select_messages_option(self):
+        driver = self.__driver
 
         # get messages checkbox
         elmnts = driver.find_elements_by_xpath("//*[@class='_3qn7 _61-3 _2fyi _3qng']")
@@ -187,6 +182,8 @@ class JsonDownloadLogger(Logger):
         start_month_elmnt = driver.find_elements_by_xpath("//*[@class='_54nc']")[19 + (start_month - 1)]
         start_month_elmnt.click()
 
+        self.sleep_up_to_5_secs()
+
         # select start day
         start_xpath = "//*[@data-testid='day_option_" + str(start_day) + "']"
         num_block = driver.find_elements_by_xpath(start_xpath)[0]
@@ -237,6 +234,8 @@ class JsonDownloadLogger(Logger):
         driver.execute_script("window.scrollTo(0, 0)")
         available_copies_button.click()
 
+        self.sleep_up_to_5_secs()
+
     def files_ready(self):
         driver = self.__driver
         try:
@@ -252,6 +251,7 @@ class JsonDownloadLogger(Logger):
         driver = self.__driver
         download_button = driver.find_element_by_xpath("//*[@data-testid='dyi/archives/download/1']")
         download_button.click()
+        self.sleep_up_to_5_secs()
 
     def download_complete(self):
         path_to_zip_file = CONFIGS['downloads_directory'] + CONFIGS['zipfile_name']
