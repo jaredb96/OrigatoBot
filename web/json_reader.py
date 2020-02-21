@@ -91,8 +91,9 @@ class JsonReader:
 
         for message in messages:
             author_name = message['sender_name']
-            # skip deactivated users
-            if author_name == 'Facebook User':
+
+            # skip deactivated users or people who are no longer in chat
+            if author_name == 'Facebook User' or author_name not in json_data_map.keys():
                 continue
 
             message_id = message['timestamp_ms']
