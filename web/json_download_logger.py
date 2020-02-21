@@ -16,8 +16,7 @@ from bs4 import BeautifulSoup
 
 class JsonDownloadLogger(Logger):
     def __init__(self):
-        self.__driver = Logger.login(self, "https://www.facebook.com/settings?tab=your_facebook_information")
-        self.__driver.maximize_window()
+        self.__driver = None
 
     def download_weekly_message_data(self):
         # download message data between today and 7 days ago
@@ -27,6 +26,9 @@ class JsonDownloadLogger(Logger):
         self.download_message_data(start_date, end_date)
 
     def download_message_data(self, start_date, end_date):
+        self.__driver = Logger.login(self, "https://www.facebook.com/settings?tab=your_facebook_information")
+        self.__driver.maximize_window()
+
         driver = self.__driver
 
         # if not headless, popover obscures focus of screen
