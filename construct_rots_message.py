@@ -12,8 +12,7 @@ def get_rots_message(messenger_chat: chat_room):
         num_messages = len(member.get_message_bank())
         total_reacts = member.get_total_reacts()
 
-        # dont include people with no messages
-        if num_messages == 0:
+        if num_messages < 50:
             continue
 
         num_messages_per_user.append(num_messages)
@@ -27,6 +26,9 @@ def get_rots_message(messenger_chat: chat_room):
         num_messages = len(member.get_message_bank())
         total_reacts = member.get_total_reacts()
 
+        if num_messages < 50:
+            continue
+
         expected = b + m * num_messages
         actual = total_reacts
 
@@ -37,7 +39,8 @@ def get_rots_message(messenger_chat: chat_room):
     top_scores = sorted_mappings[0:3]
 
     rankings_message = ""
-    rankings_message += 'In addition, here are the top 3 origato-scorers of the week!\n'
+    rankings_message += 'In addition, here are the top 3 origato-scorers of the week! ' \
+                        '(*NOTE: Only those with 50 or more messages are counted)\n'
 
     for i, mapping in enumerate(top_scores):
         author_name = mapping[0]
