@@ -5,11 +5,16 @@ from selenium.webdriver.common.action_chains import ActionChains
 from setup.load_global_configs import CONFIGS
 import time
 
-ORIGATO_CHAT_URL = 'https://www.messenger.com/t/1738204539622881'
-ORIGATO_BOT_CHAT_URL = 'https://www.messenger.com/t/100046207061829'
-HUSSAIN_CHAT_URL = 'https://www.messenger.com/t/hussain.humadi'
 
-DESTINATION_URL = ORIGATO_BOT_CHAT_URL
+MESSENGER_BASE_URL = 'https://wwww.messenger.com/login'
+
+HUSSAIN_CHAT_URL = 'https://www.messenger.com/t/hussain.humadi'
+SEAN_CHAT_URL = 'https://www.messenger.com/t/sean.britton'
+JARED_CHAT_URL = 'https://www.messenger.com/t/tobisenjumara'
+
+ORIGATO_CHAT_URL = 'https://www.messenger.com/t/1738204539622881'
+
+DESTINATION_URL = HUSSAIN_CHAT_URL
 
 
 class MessageWithMediaSendLogger(Logger):
@@ -31,10 +36,10 @@ class MessageWithMediaSendLogger(Logger):
 
         ActionChains(driver).move_to_element(chat_box).click(chat_box).perform()
         chat_box.send_keys(greeting_message + '\n')
-        time.sleep(1)
 
-        # send top reacted messages
+        self.sleep_up_to_5_secs()
         self.send_messages()
+        self.sleep_up_to_5_secs()
 
         chat_box = self.get_chat_box()
         chat_box.send_keys(farewell_message + '\n')
@@ -128,7 +133,8 @@ class MessageWithMediaSendLogger(Logger):
         if DESTINATION_URL == ORIGATO_CHAT_URL:
             return self.get_driver().find_elements_by_xpath("//*[@class='_1mf _1mj']")[1]
         # for private chats, chat box is 1st (and only) text window
-        elif DESTINATION_URL == ORIGATO_BOT_CHAT_URL or DESTINATION_URL == HUSSAIN_CHAT_URL:
+        elif DESTINATION_URL == DESTINATION_URL == HUSSAIN_CHAT_URL \
+                or DESTINATION_URL == SEAN_CHAT_URL or DESTINATION_URL == JARED_CHAT_URL:
             return self.get_driver().find_elements_by_xpath("//*[@class='_1mf _1mj']")[0]
 
     def get_rots_ranking_message(self):
