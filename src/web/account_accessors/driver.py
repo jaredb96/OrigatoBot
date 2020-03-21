@@ -1,6 +1,6 @@
+from ..account_accessors import options_fetcher
 from setup import load_global_configs
 from setup.load_global_configs import CONFIGS
-from web import options_fetcher
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 import time

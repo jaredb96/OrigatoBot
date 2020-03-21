@@ -1,7 +1,7 @@
 from . message_classes import react_builder
 
 
-class GeneralFactory:
+class GeneralMessageFactory:
     def __init__(self):
         self.react_builder = react_builder.ReactBuilder()
         pass

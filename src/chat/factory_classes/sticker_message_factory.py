@@ -2,7 +2,7 @@ from . import general_message_factory
 from . message_classes import sticker_message
 
 
-class StickerMessageFactory(general_message_factory.GeneralFactory):
+class StickerMessageMessageFactory(general_message_factory.GeneralMessageFactory):
     def build_message(self, raw_message):
         sticker_message_output = sticker_message.StickerMessage()
         sticker_message_output.author = raw_message['sender_name']

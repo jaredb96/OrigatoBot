@@ -14,6 +14,9 @@ class Message:
             self.message_id == other.message_id and \
             self.reacts == other.reacts
 
+    def get_number_of_reacts(self):
+        return len(self.reacts)
+
 
 
 

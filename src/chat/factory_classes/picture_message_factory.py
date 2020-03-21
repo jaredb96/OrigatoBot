@@ -2,7 +2,7 @@ from . import general_message_factory
 from . message_classes import picture_message
 
 
-class PictureMessageFactory(general_message_factory.GeneralFactory):
+class PictureMessageMessageFactory(general_message_factory.GeneralMessageFactory):
     def build_message(self, raw_message):
         picture_message_output = picture_message.PictureMessage()
         picture_message_output.author = raw_message['sender_name']

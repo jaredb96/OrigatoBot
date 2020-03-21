@@ -3,7 +3,7 @@ from . message_classes import audio_message
 from . message_classes import react_builder
 
 
-class AudioMessageFactory(general_message_factory.GeneralFactory):
+class AudioMessageMessageFactory(general_message_factory.GeneralMessageFactory):
     def build_message(self, raw_message):
         audio_message_output = audio_message.AudioMessage()
         audio_message_output.author = raw_message['sender_name']

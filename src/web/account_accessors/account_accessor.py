@@ -16,4 +16,5 @@ class AccountAccessor:
         account_driver.get_url(url)
         account_driver.find_username_and_password_elements()
         account_driver.type_in_username_and_password()
+        return account_driver
 

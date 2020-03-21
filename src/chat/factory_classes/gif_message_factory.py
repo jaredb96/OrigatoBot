@@ -2,7 +2,7 @@ from . import general_message_factory
 from . message_classes import gif_message
 
 
-class GifMessageFactory(general_message_factory.GeneralFactory):
+class GifMessageMessageFactory(general_message_factory.GeneralMessageFactory):
     def build_message(self, raw_message):
         gif_message_output = gif_message.GifMessage()
         gif_message_output.author = raw_message['sender_name']

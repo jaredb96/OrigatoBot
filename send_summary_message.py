@@ -1,52 +1,33 @@
-from chat import message_builder
-from web import json_reader, message_with_media_send_logger
-from chat import chat_room
-from web import json_download_logger
+from src.chat.factory_classes import message_factory
+from src.chat.message_ranking import message_ranker
+#from src.web.account_accessors import download_file_account_accessor
+from src.web.summary import summary
+#from src.web.account_accessors import message_sending_account_accessor
+from src.util import file_parser
 from setup import load_global_configs
-import time
-from construct_rots_message import *
+from src.log import *
 
-# set global configs
-load_global_configs.load_global_configs()
+# Donwload the data source.
+#load_global_configs.load_global_configs()
+#downloader = download_file_account_accessor.DownloadFileAccountAccessor()
+#downloader.download_weekly_message_data()
 
-# download message data
-json_downloader_bot = json_download_logger.JsonDownloadLogger()
-json_downloader_bot.download_weekly_message_data()
+# Get the data source and process the messages.
+parser = file_parser.FileParser()
+json_file = open('test_json.json', 'r')
+parser.json_file = json_file
+raw_messages = parser.get_raw_messages_from_chat()
+names_to_member = parser.get_names_to_member_map()
+title = parser.get_chat_title()
+thread_path = parser.get_chat_thread_path()
+m_factory = message_factory.MessageFactory()
+messages = m_factory.build_messages(raw_messages)
+ranker = message_ranker.MessageRanker()
+top_three_messages = ranker.get_top_three_messages(messages)
+summary_message = summary.Summary(top_three_messages)
+print(summary_message.top_three_messages)
 
-# unzip data and get path to it
-json_downloader_bot.unzip_message_data()
-relative_path_to_messages_jsons = json_downloader_bot.get_relative_path_to_messages_jsons()
-
-# create json parser
-m_factory = message_builder.MessageBuilder()
-j_parser = json_reader.JsonReader(json_files_directory=relative_path_to_messages_jsons)
-m_factory.set_json_reader(j_parser)
-
-# get chat members
-chat_member_names = j_parser.make_chat_member_names_list()
-messenger_chat = chat_room.ChatRoom()
-chat_members = messenger_chat.make_chat_members_from_names_list(
-    chat_member_names)
-messenger_chat.set_chat_members(chat_members)
-
-# get chat messages and assign to chat members
-chat_messages = m_factory.make_list_of_messages()
-messenger_chat.assign_messages_to_members(chat_messages)
-
-rots_ranking_message = get_rots_message(messenger_chat)
-top_three_messages = messenger_chat.get_top_k_messages_with_ties(3)
-
-# send summary to origato chat
-m_sender = message_with_media_send_logger.MessageWithMediaSendLogger(top_three_messages,
-                                                                     rots_ranking_message=rots_ranking_message)
-m_sender.send_summary()
-
-# sleep to see the result before window closes
-time.sleep(3)
-
-print('summary message sent, deleting downloaded files...')
-
-# delete zip file and unzipped directory
-json_downloader_bot.downloads_cleanup()
-
-print('cleanup complete! everythings finished :)')
+# Send the summary message to the chat.
+#message_sender = message_sending_account_accessor.\
+#    MessageSendingAccountAccessor()
+#message_sender.send_message_to_chat(summary_message)
