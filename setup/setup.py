@@ -49,8 +49,8 @@ def generate_config_file():
 
     downloads_directory = input('Please enter the directory where the bot will download the zipfile into\n'
                                 'FORMAT:\n'
-                                '\t* Make sure to end directory with slash\n'
-                                '\t* Both forward and backslashes acceptable\n'
+                                '\t* ONLY use backslashes(\'\\\')\n'
+                                '\t* Make sure to end directory with backslash(\'\\\')\n'
                                 'downloads directory: ')
     while not is_valid_downloads_directory(downloads_directory):
         downloads_directory = input('Re-enter Downloads directory: ')
@@ -95,9 +95,14 @@ def is_valid_username_format(username):
 
 def is_valid_downloads_directory(downloads_directory):
 
-    directory_ends_in_slash = downloads_directory.endswith('/') or downloads_directory.endswith('\\')
-    if not directory_ends_in_slash:
-        print('ERROR: directory must end in \'/\' or \'\\\'!')
+    directory_contains_forward_slash = '/' in downloads_directory
+    if directory_contains_forward_slash:
+        print('ERROR: directory must be specified using backslashes (\'\\\'), NOT forward slashes (\'/\')')
+        return False
+
+    directory_ends_in_backslash = downloads_directory.endswith('\\')
+    if not directory_ends_in_backslash:
+        print('ERROR: directory must end in \'\\\'!')
         return False
 
     directory_exists = os.path.isdir(downloads_directory)

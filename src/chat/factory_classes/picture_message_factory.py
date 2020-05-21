@@ -8,6 +8,7 @@ class PictureMessageMessageFactory(general_message_factory.GeneralMessageFactory
         picture_message_output.author = raw_message['sender_name']
         picture_message_output.message_id = raw_message['timestamp_ms']
         picture_message_output.media_uri = \
-            raw_message['pictures']['uri']
-        picture_message_output.reacts = self.build_reactions()
+            raw_message['photos'][0]['uri']
+        if 'reactions' in raw_message:
+            picture_message_output.reacts = self.build_reactions(raw_message['reactions'])
         return picture_message_output

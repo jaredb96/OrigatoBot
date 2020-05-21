@@ -25,7 +25,7 @@ class MessageFactory:
 
     def get_message_type(self, raw_message):
         try:
-            self.get_type(raw_message)
+            return self.get_type(raw_message)
         except KeyError:
             return 'default'
 
@@ -50,10 +50,12 @@ class MessageFactory:
         if is_media_message:
             # If the intersection isn't empty, it is made of one element
             # which is the message type
-            return intersection_of_message_and_media_type_keys.pop()
+            return media_types[intersection_of_message_and_media_type_keys.pop()]
         else:
-            # If not a media message then it is a text message.
-            return 'text'
+            # If not a media message then it is either a text message or deleted message.
+            if 'content' in raw_message:
+                return 'text'
+            return 'deleted'
 
 
 

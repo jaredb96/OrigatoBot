@@ -17,13 +17,13 @@ class Driver:
         self.enable_headless_download()
 
     def get_url(self, url):
-        self.driver.get(url)
-        raise NotImplementedError
+        return self.driver.get(url)
+        # raise NotImplementedError
 
     def find_username_and_password_elements(self):
         email = self.driver.find_element_by_id('email')
         pass_phrase = self.driver.find_element_by_id('pass')
-        username = CONFIGS['usernmae']
+        username = CONFIGS['username']
         user_pass = CONFIGS['password']
 
         email.send_keys(username)
@@ -49,3 +49,5 @@ class Driver:
                 {'behavior': 'allow',
                  'downloadPath': download_directory}}
         self.driver.execute('send_command', parameters)
+
+        print('set download directory to: ' + download_directory)

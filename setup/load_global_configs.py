@@ -1,3 +1,7 @@
+# set HEADLESS to True if you don't want a browser to open up
+# set HEADLESS to False if you want a browser to open up
+HEADLESS = True
+
 # global dictionary used to store information relative to user
 CONFIGS = {}
 

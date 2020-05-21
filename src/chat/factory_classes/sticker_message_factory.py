@@ -9,5 +9,6 @@ class StickerMessageMessageFactory(general_message_factory.GeneralMessageFactory
         sticker_message_output.message_id = raw_message['timestamp_ms']
         sticker_message_output.media_uri = \
             raw_message['sticker']['uri']
-        sticker_message_output.reacts = self.build_reactions()
+        if 'reactions' in raw_message:
+            sticker_message_output.reacts = self.build_reactions(raw_message['reactions'])
         return sticker_message_output

@@ -3,7 +3,7 @@ class MessageRanker:
         top_three_message = []
         sorted_messages = self.get_sorted_messages(messages)
         for i, message in enumerate(sorted_messages):
-            if i < 3:
+            if i < 3 or message.get_number_of_reacts() >= 4:
                 top_three_message.append(message)
             else:
                 number_of_reacts_for_message = message.\
@@ -21,7 +21,7 @@ class MessageRanker:
 
     def get_sorted_messages(self, messages):
         sorted_messages = sorted(
-            messages,
+            messages.message_bank,
             key=lambda x: x.get_number_of_reacts(),
             reverse=True)
         return sorted_messages

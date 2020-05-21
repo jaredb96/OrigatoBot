@@ -31,6 +31,14 @@ class ReactBuilder:
     def build_react_object_from_raw_react(self, raw_react):
         react_output = react.React()
         react_output.actor = raw_react['actor']
-        codes = self.reaction_codes
-        react_output.reaction_type = codes[raw_react['reaction']]
+        react_output.reaction_type = self.get_react_type_from_raw_react(raw_react)
         return react_output
+
+    def get_react_type_from_raw_react(self, raw_react):
+        codes = self.reaction_codes
+        try:
+            react_type = codes[raw_react['reaction']]
+            return react_type
+        except:
+            default_react_type = 'upthumb'
+            return default_react_type

@@ -17,7 +17,7 @@ class DirectoryWalker:
         elif platform.system() == 'Linux' or platform.system() == \
                 'Darwin':
             for directory_name in os.listdir('messages/inbox'):
-                if 'origato' in directory_name:
+                if 'origato' in directory_name and 'origatoresurrected' not in directory_name:
                     return directory_name
 
         # default, should never reach
@@ -33,7 +33,7 @@ class DirectoryWalker:
         elif platform.system() == 'Linux' or platform.system() == \
                 'Darwin':
             for directory_name in os.listdir('messages/inbox'):
-                if 'ORIGATO' in directory_name:
+                if 'ORIGATO' in directory_name and 'ORIGATORESURRECTED' not in directory_name:
                     return directory_name
 
         # default, should never reach
@@ -42,7 +42,7 @@ class DirectoryWalker:
     def get_origato_directory_name_windows(self):
         origato_chat_name = ""
         for directory_name in os.listdir('messages/inbox'):
-            if 'ORIGATO' in directory_name.upper():
+            if 'ORIGATO' in directory_name.upper() and 'ORIGATORESURRECTED' not in directory_name.upper():
                 origato_chat_name = directory_name
         return origato_chat_name
 

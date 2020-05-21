@@ -1,6 +1,6 @@
 from selenium import webdriver
 from setup import load_global_configs
-from setup.load_global_configs import CONFIGS
+from setup.load_global_configs import CONFIGS, HEADLESS
 
 
 class OptionsFetcher:
@@ -17,12 +17,10 @@ class OptionsFetcher:
                             self.DISABLE_GPU_ARG,
                             self.DISABLE_NOTIFICATIONS_ARG,
                             self.NO_SANDBOX_ARG,
-                            self.VERBOSE_ARG,
-                            self.PREFs_ARG]
+                            self.VERBOSE_ARG]
         load_global_configs.load_global_configs()
         self.EXPERIMENTAL_ARG = {
-                "download.default_directory":
-                CONFIGS['downloads_directory'],
+                "download.default_directory": CONFIGS['downloads_directory'],
                 "download.prompt_for_download": False,
                 "download.directory_upgrade": True,
                 "safebrowsing_for_trusted_sources_enabled": False,
@@ -31,8 +29,9 @@ class OptionsFetcher:
         self.options = webdriver.ChromeOptions()
 
     def get_driver_options(self):
-        self.add_arguments()
-        self.add_experimental_option(self.EXPERIMENTAL_ARG)
+        if HEADLESS:
+            self.add_arguments()
+            self.add_experimental_option(self.EXPERIMENTAL_ARG)
         return self.options
 
     def add_arguments(self):
