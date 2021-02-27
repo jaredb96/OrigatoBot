@@ -1,5 +1,5 @@
 # ChatBot
-This repo provides an implementation for a Facebook Messenger chatbot. The bot parses through our group chat messages to find the weekly highlights of the chat, and generates leaderboards for the most interesting posts and most popular group members. It then presents its findings to the gruop chat for everyone to see.
+This repo provides an implementation for a Facebook Messenger chatbot. The bot parses through our group chat messages to find the weekly highlights of the chat, and generates leaderboards for the most interesting posts and most popular group members. It then presents its findings to the group chat for everyone to see.
 
 ## Getting Started
 Before starting, you should already have <b>python3</b> and <b>pip</b> installed on your machine (pip is used to install all the necessary dependencies in the setup script)
